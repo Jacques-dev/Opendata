@@ -1,0 +1,25 @@
+.contents {
+  overflow:auto;
+  white-space: nowrap;
+  margin-top: 50px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.contents th, .contents td {
+  text-align: left;
+  padding: 8px;
+  width: 100%;
+}
+
+.contents #head {
+  background-color: rgba(48, 178, 193, 1);
+}
+
+.contents #first {
+  background-color: lightgrey;
+}
+
+.contents #second {
+  background-color: white;
+}
