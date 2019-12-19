@@ -97,10 +97,8 @@
             <div id="diplome" class="tabcontent">
 
                 <?php
-                $x = 0;
                 foreach ($results["facet_groups"][0]["facets"] as $diplome) {
-                  printf("<div class='checkbox'><input type='checkbox' id='diplome' name='checkboxdiplome".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$diplome["name"],$diplome["name"],$diplome["name"]);
-                  $x = $x+1;
+                  printf("<div class='checkbox'><input type='checkbox' id='diplome' name='checkboxdiplome[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$diplome["name"],$diplome["name"],$diplome["name"]);
                 }
                 ?>
 
@@ -109,10 +107,8 @@
             <div id="formation" class="tabcontent">
 
                 <?php
-                $x = 0;
                 foreach ($results2["facet_groups"][0]["facets"] as $formation) {
-                  printf("<div class='checkbox'><input type='checkbox' id='formation' name='checkboxformation".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$formation["name"],$formation["name"],$formation["name"]);
-                  $x = $x+1;
+                  printf("<div class='checkbox'><input type='checkbox' id='formation' name='checkboxformation[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$formation["name"],$formation["name"],$formation["name"]);
                 }
                 ?>
 
@@ -121,10 +117,8 @@
             <div id="region" class="tabcontent">
 
                 <?php
-                $x = 0;
                 foreach ($results3["facet_groups"][0]["facets"] as $region) {
-                  printf("<div class='checkbox'><input type='checkbox' id='region' name='checkboxregion".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$region["name"],$region["name"],$region["name"]);
-                  $x = $x+1;
+                  printf("<div class='checkbox'><input type='checkbox' id='region' name='checkboxregion[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$region["name"],$region["name"],$region["name"]);
                 }
                 ?>
 
@@ -133,10 +127,8 @@
             <div id="departement" class="tabcontent">
 
                 <?php
-                $x = 0;
                 foreach ($results4["facet_groups"][0]["facets"] as $departement) {
-                  printf("<div class='checkbox'><input type='checkbox' id='departement' name='checkboxdepartement".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$departement["name"],$departement["name"],$departement["name"]);
-                  $x = $x+1;
+                  printf("<div class='checkbox'><input type='checkbox' id='departement' name='checkboxdepartement[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$departement["name"],$departement["name"],$departement["name"]);
                 }
                 ?>
 
@@ -145,10 +137,8 @@
             <div id="ville" class="tabcontent">
 
                 <?php
-                $x = 0;
                 foreach ($results5["facet_groups"][0]["facets"] as $ville) {
-                  printf("<div class='checkbox'><input type='checkbox' id='ville' name='checkboxville".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$ville["name"],$ville["name"],$ville["name"]);
-                  $x = $x+1;
+                  printf("<div class='checkbox'><input type='checkbox' id='ville' name='checkboxville[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$ville["name"],$ville["name"],$ville["name"]);
                 }
                 ?>
 
@@ -157,10 +147,8 @@
             <div id="academie" class="tabcontent">
 
                 <?php
-                $x = 0;
                 foreach ($results6["facet_groups"][1]["facets"] as $academie) {
-                  printf("<div class='checkbox'><input type='checkbox' id='academie' name='checkboxacademie".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$academie["name"],$academie["name"],$academie["name"]);
-                  $x = $x+1;
+                  printf("<div class='checkbox'><input type='checkbox' id='academie' name='checkboxacademie[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$academie["name"],$academie["name"],$academie["name"]);
                 }
                 ?>
 
@@ -169,10 +157,8 @@
             <div id="etablissement" class="tabcontent">
 
                 <?php
-                $x = 0;
                 foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
-                  printf("<div class='checkbox'><input type='checkbox' id='etablissement' name='checkboxetablissement".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$etablissement["name"],$etablissement["name"],$etablissement["name"]);
-                  $x = $x+1;
+                  printf("<div class='checkbox'><input type='checkbox' id='etablissement' name='checkboxetablissement[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$etablissement["name"],$etablissement["name"],$etablissement["name"]);
                 }
                 ?>
 
@@ -184,7 +170,9 @@
 
         <div id="checkboxvalue">
           <?php
-          echo $_POST["checkboxetablissement1"];
+          foreach ($_POST["checkboxetablissement"] as $t) {
+            echo $t;
+          }
           ?>
           Votre sélection :
           <p></p>
@@ -317,6 +305,8 @@
 
       $('p').text(tab.join(" - "));
     });
+
+
 
   </script>
 </html>
