@@ -28,11 +28,6 @@
   $contents7 = file_get_contents($url7);
   $results7 = json_decode($contents7, true);
 
-
-
-  //$urltab1 = "";
-  //$contentstab1 = file_get_contents($urltab1);
-  //$tab = json_decode($contentstab1, true);
 ?>
 
 
@@ -98,78 +93,99 @@
 
 
         <div id="container-2">
-          <div id="diplome" class="tabcontent">
-            <form method="post" action="index.php">
-              <?php
-              foreach ($results["facet_groups"][0]["facets"] as $diplome) {
-                printf("<div class='checkbox'><input type='checkbox' id='diplome' name='checkboxvalue' value=\"%s\"><label for=\"%s\">%s</label></div>",$diplome["name"],$diplome["name"],$diplome["name"]);
-              }
-              ?>
-            </form>
-          </div>
+          <form method="post" action="index.php">
+            <div id="diplome" class="tabcontent">
 
-          <div id="formation" class="tabcontent">
-            <form method="post" action="index.php">
-              <?php
-              foreach ($results2["facet_groups"][0]["facets"] as $formation) {
-                printf("<div class='checkbox'><input type='checkbox' id='formation' name='checkboxvalue' value=\"%s\"><label for=\"%s\">%s</label></div>",$formation["name"],$formation["name"],$formation["name"]);
-              }
-              ?>
-            </form>
-          </div>
+                <?php
+                $x = 0;
+                foreach ($results["facet_groups"][0]["facets"] as $diplome) {
+                  printf("<div class='checkbox'><input type='checkbox' id='diplome' name='checkboxdiplome".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$diplome["name"],$diplome["name"],$diplome["name"]);
+                  $x = $x+1;
+                }
+                ?>
 
-          <div id="region" class="tabcontent">
-            <form method="post" action="index.php">
-              <?php
-              foreach ($results3["facet_groups"][0]["facets"] as $region) {
-                printf("<div class='checkbox'><input type='checkbox' id='region' name='checkboxvalue' value=\"%s\"><label for=\"%s\">%s</label></div>",$region["name"],$region["name"],$region["name"]);
-              }
-              ?>
-            </form>
-          </div>
+            </div>
 
-          <div id="departement" class="tabcontent">
-            <form method="post" action="index.php">
-              <?php
-              foreach ($results4["facet_groups"][0]["facets"] as $departement) {
-                printf("<div class='checkbox'><input type='checkbox' id='departement' name='checkboxvalue' value=\"%s\"><label for=\"%s\">%s</label></div>",$departement["name"],$departement["name"],$departement["name"]);
-              }
-              ?>
-            </form>
-          </div>
+            <div id="formation" class="tabcontent">
 
-          <div id="ville" class="tabcontent">
-            <form method="post" action="index.php">
-              <?php
-              foreach ($results5["facet_groups"][0]["facets"] as $ville) {
-                printf("<div class='checkbox'><input type='checkbox' id='ville' name='checkboxvalue' value=\"%s\"><label for=\"%s\">%s</label></div>",$ville["name"],$ville["name"],$ville["name"]);
-              }
-              ?>
-            </form>
-          </div>
+                <?php
+                $x = 0;
+                foreach ($results2["facet_groups"][0]["facets"] as $formation) {
+                  printf("<div class='checkbox'><input type='checkbox' id='formation' name='checkboxformation".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$formation["name"],$formation["name"],$formation["name"]);
+                  $x = $x+1;
+                }
+                ?>
 
-          <div id="academie" class="tabcontent">
-            <form method="post" action="index.php">
-              <?php
-              foreach ($results6["facet_groups"][1]["facets"] as $academie) {
-                printf("<div class='checkbox'><input type='checkbox' id='academie' name='checkboxvalue' value=\"%s\"><label for=\"%s\">%s</label></div>",$academie["name"],$academie["name"],$academie["name"]);
-              }
-              ?>
-            </form>
-          </div>
+            </div>
 
-          <div id="etablissement" class="tabcontent">
-            <form method="post" action="index.php">
-              <?php
-              foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
-                printf("<div class='checkbox'><input type='checkbox' id='etablissement' name='checkboxvalue' value=\"%s\"><label for=\"%s\">%s</label></div>",$etablissement["name"],$etablissement["name"],$etablissement["name"]);
-              }
-              ?>
-            </form>
-          </div>
+            <div id="region" class="tabcontent">
+
+                <?php
+                $x = 0;
+                foreach ($results3["facet_groups"][0]["facets"] as $region) {
+                  printf("<div class='checkbox'><input type='checkbox' id='region' name='checkboxregion".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$region["name"],$region["name"],$region["name"]);
+                  $x = $x+1;
+                }
+                ?>
+
+            </div>
+
+            <div id="departement" class="tabcontent">
+
+                <?php
+                $x = 0;
+                foreach ($results4["facet_groups"][0]["facets"] as $departement) {
+                  printf("<div class='checkbox'><input type='checkbox' id='departement' name='checkboxdepartement".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$departement["name"],$departement["name"],$departement["name"]);
+                  $x = $x+1;
+                }
+                ?>
+
+            </div>
+
+            <div id="ville" class="tabcontent">
+
+                <?php
+                $x = 0;
+                foreach ($results5["facet_groups"][0]["facets"] as $ville) {
+                  printf("<div class='checkbox'><input type='checkbox' id='ville' name='checkboxville".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$ville["name"],$ville["name"],$ville["name"]);
+                  $x = $x+1;
+                }
+                ?>
+
+            </div>
+
+            <div id="academie" class="tabcontent">
+
+                <?php
+                $x = 0;
+                foreach ($results6["facet_groups"][1]["facets"] as $academie) {
+                  printf("<div class='checkbox'><input type='checkbox' id='academie' name='checkboxacademie".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$academie["name"],$academie["name"],$academie["name"]);
+                  $x = $x+1;
+                }
+                ?>
+
+            </div>
+
+            <div id="etablissement" class="tabcontent">
+
+                <?php
+                $x = 0;
+                foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
+                  printf("<div class='checkbox'><input type='checkbox' id='etablissement' name='checkboxetablissement".$x."' value=\"%s\"><label for=\"%s\">%s</label></div>",$etablissement["name"],$etablissement["name"],$etablissement["name"]);
+                  $x = $x+1;
+                }
+                ?>
+
+            </div>
+
+          </form>
+
         </div>
 
         <div id="checkboxvalue">
+          <?php
+          echo $_POST["checkboxetablissement1"];
+          ?>
           Votre sélection :
           <p></p>
         </div>
@@ -188,24 +204,73 @@
             <th>Etablissement</th>
             <th>Description</th>
           </tr>
-          <!--
+
           <?php
-          $ok = true;
-          foreach ($tab[""] as $tabresult) {
-              if ($ok == true) {
+
+
+
+          //$urltab1 = "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18";
+          $contentstab1 = file_get_contents($urltab1);
+          $tab = json_decode($contentstab1, true);
+
+          $color = true;
+          foreach ($tab as $value) {
+              if ($color == true) {
                 echo "<tr id='first'>";
-                  printf("test");
+                  echo "<td>";
+                  print($value['fields']['typ_diplome_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['discipline_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['reg_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['dep_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['com_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['aca_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['etablissement_lib']);
+                  echo "</td>";
+                  echo "<td><button>test</button></td>";
                 echo "</tr>";
-                $ok = false;
+                $color = false;
               } else {
                 echo "<tr id='second'>";
-                  printf();
+                  echo "<td>";
+                  print($value['fields']['typ_diplome_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['discipline_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['reg_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['dep_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['com_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['aca_etab_lib']);
+                  echo "</td>";
+                  echo "<td>";
+                  print($value['fields']['etablissement_lib']);
+                  echo "</td>";
+                  echo "<td><button>test</button></td>";
                 echo "</tr>";
-                $ok = true;
+                $color = true;
               }
           }
           ?>
-        -->
+
         </table>
       </div>
     </div>
@@ -250,7 +315,7 @@
         tab.push($(this).val());
       });
 
-      $('p').text(tab.join());
+      $('p').text(tab.join(" - "));
     });
 
   </script>
