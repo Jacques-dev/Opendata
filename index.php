@@ -1,10 +1,36 @@
 
 <?php
-  $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=diplome_lib&facet=typ_diplome_lib&refine.rentree_lib=2017-18";
+
+session_start();
+
+if(!empty($_POST) OR !empty($_FILES))
+{
+$_SESSION['sauvegarde'] = $_POST ;
+$_SESSION['sauvegardeFILES'] = $_FILES ;
+
+$fichierActuel = $_SERVER['PHP_SELF'] ;
+if(!empty($_SERVER['QUERY_STRING']))
+{
+$fichierActuel .= '?' . $_SERVER['QUERY_STRING'] ;
+}
+
+header('Location: ' . $fichierActuel);
+exit;
+}
+
+if(isset($_SESSION['sauvegarde']))
+{
+$_POST = $_SESSION['sauvegarde'] ;
+$_FILES = $_SESSION['sauvegardeFILES'] ;
+
+unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
+}
+
+  $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=diplome_lib&refine.rentree_lib=2017-18";
   $contents = file_get_contents($url);
   $results = json_decode($contents, true);
 
-  $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=sect_disciplinaire_lib&refine.rentree_lib=2017-18";
+  $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=discipline_lib&refine.rentree_lib=2017-18";
   $contents2 = file_get_contents($url2);
   $results2 = json_decode($contents2, true);
 
@@ -31,7 +57,8 @@
 ?>
 
 
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -47,10 +74,11 @@
   </head>
 
   <body>
-
+    <!--
     <video id="bgvid" playsinline autoplay muted loop>
       <source src="vid/1.mp4" type="video/mp4">
     </video>
+    -->
 
     <headbanner>
       <h class="center1">Nom du site</h>
@@ -170,7 +198,15 @@
               <p></p>
             </div>
 
-            <input type="submit" name="submit" value="Rechercher">
+            <div class="svg-wrapper">
+              <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape" height="40" width="150" />
+                <div id="text">
+                  <input type="submit" name="submit" class="spot" value="Rechercher">
+                </div>
+              </svg>
+            </div>
+
           </form>
 
         </div>
@@ -191,36 +227,72 @@
           </tr>
 
           <?php
-          /*
-          $dip = "facet=typ_diplome_lib";
-          $for = "facet=discipline_lib";
-          $reg = "facet=reg_etab_lib";
-          $dep = "facet=dep_etab_lib";
-          $vil = "facet=com_etab_lib";
-          $aca = "facet=aca_etab_lib";
-          $eta = "facet=etablissement_lib";
+
+          $dip = "&facet=diplome_lib";
+          $for = "&facet=discipline_lib";
+          $reg = "&facet=reg_etab_lib";
+          $dep = "&facet=dep_etab_lib";
+          $vil = "&facet=com_etab_lib";
+          $aca = "&facet=aca_etab_lib";
+          $eta = "&facet=etablissement_lib";
 
           if (isset($_POST["submit"])) {
-            $dip = isset($_POST['checkboxdiplome']) ? $_POST['checkboxdiplome'] : "facet=typ_diplome_lib";
+            if (isset($_POST['checkboxdiplome'])) {
+              $dip = "";
+              foreach ($_POST['checkboxdiplome'] as $x) {
+                $dip = $dip."&refine.diplome_lib=".$x;
+              }
+            }
 
-            $for = isset($_POST['checkboxformation']) ? $_POST['checkboxformation'] : "facet=discipline_lib";
+            if (isset($_POST['checkboxformation'])) {
+              $for = "";
+              foreach ($_POST['checkboxformation'] as $x) {
+                $for = $for."&refine.discipline_lib=".$x;
+              }
+            }
 
-            $reg = isset($_POST['checkboxregion']) ? $_POST['checkboxregion'] : "facet=reg_etab_lib";
+            if (isset($_POST['checkboxregion'])) {
+              $reg = "";
+              foreach ($_POST['checkboxregion'] as $x) {
+                $reg = $reg."&refine.reg_etab_lib=".$x;
+              }
+            }
 
-            $dep = isset($_POST['checkboxdepartement']) ? $_POST['checkboxdepartement'] : "facet=dep_etab_lib";
+            if (isset($_POST['checkboxdepartement'])) {
+              $dep = "";
+              foreach ($_POST['checkboxdepartement'] as $x) {
+                $dep = $dep."&refine.dep_etab_lib=".$x;
+              }
+            }
 
-            $vil = isset($_POST['checkboxville']) ? $_POST['checkboxville'] : "facet=com_etab_lib";
+            if (isset($_POST['checkboxville'])) {
+              $vil = "";
+              foreach ($_POST['checkboxville'] as $x) {
+                $vil = $vil."&refine.com_etab_lib=".$x;
+              }
+            }
 
-            $aca = isset($_POST['checkboxacademie']) ? $_POST['checkboxacademie'] : "facet=aca_etab_lib";
+            if (isset($_POST['checkboxacademie'])) {
+              $aca = "";
+              foreach ($_POST['checkboxacademie'] as $x) {
+                $aca = $aca."&refine.aca_etab_lib=".$x;
+              }
+            }
 
-            $eta = isset($_POST['checkboxetablissement']) ? $_POST['checkboxetablissement'] : "facet=etablissement_lib";
+            if (isset($_POST['checkboxetablissement'])) {
+              $eta = "";
+              foreach ($_POST['checkboxetablissement'] as $x) {
+                $eta = $eta."&refine.etablissement_lib=".$x;
+              }
+            }
+
+
 
           }
-          https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&.$xeta.&.$xdip.&.$xfor.&.$xvil.&.$xdep.&.$xaca.&.$xreg.&refine.rentree_lib=2017-18
-          https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=etablissement_lib&facet=typ_diplome_lib&facet=discipline_lib&facet=com_etab_lib&facet=dep_etab_lib&facet=aca_etab_lib&facet=reg_etab_lib
-          */
 
-          $urltab1 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=100&sort=-rentree_lib&facet=etablissement_lib&facet=typ_diplome_lib&facet=discipline_lib&facet=com_etab_lib&facet=dep_etab_lib&facet=aca_etab_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18";
+
+
+          $urltab1 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=100&sort=-rentree_lib".$eta.$dip.$for.$vil.$dep.$aca.$reg."&refine.rentree_lib=2017-18";
           $contentstab1 = file_get_contents($urltab1);
           $tab = json_decode($contentstab1, true);
 
@@ -229,7 +301,7 @@
               if ($color == true) {
                 echo "<tr id='first'>";
                   echo "<td>";
-                  print($value["fields"]['typ_diplome_lib']);
+                  print($value["fields"]['diplome_lib']);
                   echo "</td>";
                   echo "<td>";
                   print($value['fields']['discipline_lib']);
@@ -255,7 +327,7 @@
               } else {
                 echo "<tr id='second'>";
                   echo "<td>";
-                  print($value['fields']['typ_diplome_lib']);
+                  print($value['fields']['diplome_lib']);
                   echo "</td>";
                   echo "<td>";
                   print($value['fields']['discipline_lib']);
@@ -280,9 +352,17 @@
                 $color = true;
               }
           }
+
           ?>
 
         </table>
+        <?php
+        $count = 0;
+        foreach ($tab['records'] as $value) {
+          $count +=1;
+        }
+        if ($count == 0) {echo "<div id='aucunedonnee'>AUCUNE DONNÉES</div>";}
+        ?>
       </div>
     </div>
 

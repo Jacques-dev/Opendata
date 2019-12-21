@@ -35,6 +35,7 @@
 }
 
 body {
+  background: url(../img/1.jpg) center no-repeat, rebeccapurple;
   background-color: var(--background1);
   margin: 0;
   padding: 0;
@@ -86,7 +87,6 @@ headbanner {
 
 /*SEARCH BAR*/
 .topnav {
-  overflow: hidden;
   width: 30%;
   margin: 100px auto 0 auto;
 }
@@ -166,6 +166,11 @@ headbanner {
   font-size: var(--txt);
 }
 
+#aucunedonnee {
+  font-size: 20px;
+  color: red;
+}
+
 #mapid {
   margin-top: 100px;
   height: 250px;
@@ -176,8 +181,6 @@ headbanner {
   margin-left: 25%;
   margin-right: 25%;
 }
-
-
 
 /*FOOTER*/
 footer {
