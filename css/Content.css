@@ -1,9 +1,9 @@
 .contents {
-  overflow:auto;
-  white-space: nowrap;
+  overflow: auto;
   margin-top: 50px;
   margin-left: 10%;
   margin-right: 10%;
+  height: 300px;
 }
 
 .contents th, .contents td {
