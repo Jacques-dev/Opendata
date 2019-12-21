@@ -65,12 +65,13 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
     <link rel="stylesheet" type="text/css" href="css/MyStyles.css">
     <link rel="stylesheet" type="text/css" href="css/button.css">
     <link rel="stylesheet" type="text/css" href="css/Content.css">
+    <link rel="stylesheet" type="text/css" href="css/forms.css">
     <link rel="stylesheet" type="text/css" href="css/Animations.css">
 
     <script type="text/javascript" src="js/MyScript.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
 
-    <title>OpenDataProject</title>
+    <title>Make Your Life Plans</title>
   </head>
 
   <body>
@@ -81,7 +82,7 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
     -->
 
     <headbanner>
-      <h class="center1">Nom du site</h>
+      <h class="center1">MYLP</h>
     </headbanner>
 
     <div class="topnav">
@@ -321,7 +322,7 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
                   echo "<td>";
                   print($value['fields']['etablissement_lib']);
                   echo "</td>";
-                  echo "<td><button>+ d'info</button></td>";
+                  echo "<td><button id='nomEtab' value='".$value['fields']['etablissement_lib']."'><a href='Etablissement.php'>+ d'info</a></button></td>";
                 echo "</tr>";
                 $color = false;
               } else {
@@ -347,12 +348,12 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
                   echo "<td>";
                   print($value['fields']['etablissement_lib']);
                   echo "</td>";
-                  echo "<td><button>+ d'info</button></td>";
+                  echo "<td><button id='nomEtab' value='".$value['fields']['etablissement_lib']."'><a href='Etablissement.php'>+ d'info</a></button></td>";
                 echo "</tr>";
                 $color = true;
               }
           }
-
+          
           ?>
 
         </table>
@@ -367,8 +368,8 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
     </div>
 
     <footer>
-      <button>A propos</button>
-      <button>Aide</button>
+      <button><a href="Propos.php" style="text-decoration:none">A propos</a></button>
+      <button><a href="Aide.php" style="text-decoration:none">Aide</a></button>
     </footer>
 
   </body>
@@ -408,6 +409,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
 
       $('p').text(tab.join(" & "));
 
+    });
+
+    $('button').on('click', function() {
+
+      document.getElementById('nomEtab').value;
     });
 
   </script>

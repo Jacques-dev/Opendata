@@ -7,6 +7,8 @@
   height: 100%;
   top: 0;
   left: 0;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0);
 }
 
 .svg-wrapper {
@@ -22,8 +24,8 @@
 
 .svg-wrapper #shape {
   stroke-width: 6px;
-  fill: transparent;
-  stroke: #009FFD;
+  fill: white;
+  stroke: rgba(48, 178, 193, 1);
   stroke-dasharray: 85 400;
   stroke-dashoffset: -220;
   transition: 1s all ease;
@@ -35,19 +37,15 @@
 }
 
 .svg-wrapper #text input {
-  color: white;
   text-decoration: none;
   font-weight: 100;
   font-size: 1.1em;
 }
-/*
-    Changing the shape on hover. I change the color of the stroke,
-make it thinner, then set it to again wrap around the entire parent element.
-*/
 
 .svg-wrapper:hover #shape {
   stroke-dasharray: 50 0;
   stroke-width: 3px;
   stroke-dashoffset: 0;
-  stroke: #06D6A0;
+  stroke: white;
+  fill: rgba(48, 178, 193, 0.8);
 }
