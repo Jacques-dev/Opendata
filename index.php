@@ -99,22 +99,22 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
           <div onclick="openFilter(event, 'diplome')" class="btn btn-two tablinks">
             <span>Diplome</span>
           </div>
-          <div onclick="openFilter(event, 'formation')" class="btn btn-two tablinks">
+          <div onclick="openFilter(event, 'formation')" class="btn btn-two-2 tablinks">
             <span>Formation</span>
           </div>
           <div onclick="openFilter(event, 'region')" class="btn btn-two tablinks">
             <span>Région</span>
           </div>
-          <div onclick="openFilter(event, 'departement')" class="btn btn-two tablinks">
+          <div onclick="openFilter(event, 'departement')" class="btn btn-two-2 tablinks">
             <span>Département</span>
           </div>
           <div onclick="openFilter(event, 'ville')" class="btn btn-two tablinks">
             <span>Ville</span>
           </div>
-          <div onclick="openFilter(event, 'academie')" class="btn btn-two tablinks">
+          <div onclick="openFilter(event, 'academie')" class="btn btn-two-2 tablinks">
             <span>Académie</span>
           </div>
-          <div onclick="openFilter(event, 'etablissement')" class="btn btn-two tablinks">
+          <div onclick="openFilter(event, 'etablissement')" class="btn btn-two-2 tablinks">
             <span>Etablissement</span>
           </div>
         </div>
@@ -217,14 +217,14 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
       <div class="contents">
         <table>
           <tr id="head">
-            <th>Diplome</th>
-            <th>Formation</th>
-            <th>Région</th>
-            <th>Département</th>
-            <th>Ville</th>
-            <th>Académie</th>
-            <th>Etablissement</th>
-            <th>Description</th>
+            <th>diplomes</th>
+            <th>Formations</th>
+            <th>Régions</th>
+            <th>Départements</th>
+            <th>Villes</th>
+            <th>Académies</th>
+            <th>Etablissements</th>
+            <th>Liens</th>
           </tr>
 
           <?php
@@ -300,60 +300,64 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
           $color = true;
           foreach ($tab['records'] as $value) {
               if ($color == true) {
-                echo "<tr id='first'>";
-                  echo "<td>";
-                  print($value["fields"]['diplome_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['discipline_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['reg_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['dep_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['com_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['aca_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['etablissement_lib']);
-                  echo "</td>";
-                  echo "<td><button id='nomEtab' value='".$value['fields']['etablissement_lib']."'><a href='Etablissement.php'>+ d'info</a></button></td>";
-                echo "</tr>";
+                echo "<form method='post' action='Etablissement.php'> ";
+                  echo "<tr id='first'>";
+                    echo "<td>";
+                    print($value["fields"]['diplome_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['discipline_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['reg_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['dep_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['com_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['aca_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['etablissement_lib']);
+                    echo "</td>";
+                    echo "<td><a href='Etablissement.php'><input type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input></a></td>";
+                  echo "</tr>";
+                echo "</form>";
                 $color = false;
               } else {
-                echo "<tr id='second'>";
-                  echo "<td>";
-                  print($value['fields']['diplome_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['discipline_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['reg_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['dep_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['com_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['aca_etab_lib']);
-                  echo "</td>";
-                  echo "<td>";
-                  print($value['fields']['etablissement_lib']);
-                  echo "</td>";
-                  echo "<td><button id='nomEtab' value='".$value['fields']['etablissement_lib']."'><a href='Etablissement.php'>+ d'info</a></button></td>";
-                echo "</tr>";
+                echo "<form method='post' action='Etablissement.php'> ";
+                  echo "<tr id='second'>";
+                    echo "<td>";
+                    print($value['fields']['diplome_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['discipline_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['reg_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['dep_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['com_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['aca_etab_lib']);
+                    echo "</td>";
+                    echo "<td>";
+                    print($value['fields']['etablissement_lib']);
+                    echo "</td>";
+                    echo "<td><a href='Etablissement.php'><input type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input></a></td>";
+                  echo "</tr>";
+                echo "</form>";
                 $color = true;
               }
           }
-          
+
           ?>
 
         </table>
@@ -409,11 +413,6 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
 
       $('p').text(tab.join(" & "));
 
-    });
-
-    $('button').on('click', function() {
-
-      document.getElementById('nomEtab').value;
     });
 
   </script>

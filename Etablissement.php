@@ -1,5 +1,7 @@
 
-<?php session_start(); ?>
+<?php
+
+?>
 
 <html>
   <head>
@@ -32,29 +34,58 @@
       <h class="center">MYLP</h>
     </headbanner>
 
+    <?php
+    $url = "https://data.education.gouv.fr/api/records/1.0/search/?dataset=fr-en-adresse-et-geolocalisation-etablissements-premier-et-second-degre&refine.libelle_commune=".$_POST["nomEtab"];
+    $content = file_get_contents($url);
+    $results = json_decode($content, true);
+
+    foreach($results['records'] as $value) {
+      $lat = $value["fields"]["position"][0];
+      $lon = $value["fields"]["position"][1];
+    }
+    ?>
     <div id="mapid"></div>
 
+    <a href="index.php">
+      <div class="svg-wrapper">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+          <rect id="shape" height="40" width="150" />
+          <div id="text">
+            <input type="submit" name="submit" class="spot" value="Retour menu">
+          </div>
+        </svg>
+      </div>
+    </a>
+
     <div id="info">
-      <h><?php echo $_SESSION["etab"] ?></h>
-      <div>
-        INFO
+      <?php if (isset($_POST["nomEtab"])) {
+
+        echo "<h>";
+        echo $_POST["nomEtab"];
+        echo "</h>";
+
+
+      }?>
+      <div style="margin-top:50px;">
+        Des infos...
       </div>
     </div>
 
   </body>
 
   <script>
+    var lon = <?php echo json_encode($lon); ?>;
+    var lat = <?php echo json_encode($lat); ?>;
+    var mymap = L.map('mapid').setView([lat, lon], 12);
 
-    var mymap = L.map('mapid').setView([48.837, 2.584], 12);
-
-    var marker = L.marker([48.837, 2.584]).addTo(mymap);
+    var marker = L.marker([lat, lon]).addTo(mymap);
 
     var popup = L.popup()
-    .setLatLng([51.5, -0.09])
+    .setLatLng([lat, lon])
     .setContent("I am a standalone popup.")
     .openOn(mymap);
 
-    marker.bindPopup("<b>IUT Marne La Vallée.").openPopup();
+    marker.bindPopup(<?php echo json_encode($_POST["nomEtab"]); ?>).openPopup();
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: '',

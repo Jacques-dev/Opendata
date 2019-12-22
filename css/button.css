@@ -52,13 +52,43 @@
   animation-duration: 2s;
 }
 .btn-two:hover::before {
-  animation-name: rotateccw; 
+  animation-name: rotateccw;
   animation-duration: 3s;
 }
 .btn-two:hover::after, .btn-two:hover::before {
   left: 96px;
   width: 64px;
-  
+
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+
+.btn-two-2::before, .btn-two-2::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+.btn-two-2:hover::after {
+  animation-name: rotatecw;
+  animation-duration: 2s;
+}
+.btn-two-2:hover::before {
+  animation-name: rotateccw;
+  animation-duration: 3s;
+}
+.btn-two-2:hover::after, .btn-two-2:hover::before {
+  bottom: -15px;
+  left: 76px;
+  width: 100px;
+  height: 100px;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
