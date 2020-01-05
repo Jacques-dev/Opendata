@@ -24,7 +24,7 @@
 
 .svg-wrapper #shape {
   stroke-width: 6px;
-  fill: white;
+  fill: rgba(255, 255, 255, 0);
   stroke: rgba(48, 178, 193, 1);
   stroke-dasharray: 85 400;
   stroke-dashoffset: -220;

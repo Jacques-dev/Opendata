@@ -62,11 +62,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="css/MyStyles.css">
-    <link rel="stylesheet" type="text/css" href="css/button.css">
-    <link rel="stylesheet" type="text/css" href="css/Content.css">
-    <link rel="stylesheet" type="text/css" href="css/forms.css">
-    <link rel="stylesheet" type="text/css" href="css/Animations.css">
+    <link rel="stylesheet" type="text/css" href="MyStyles.css">
+    <link rel="stylesheet" type="text/css" href="button.css">
+    <link rel="stylesheet" type="text/css" href="Content.css">
+    <link rel="stylesheet" type="text/css" href="forms.css">
+    <link rel="stylesheet" type="text/css" href="Animations.css">
 
     <script type="text/javascript" src="js/MyScript.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
@@ -85,13 +85,39 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
       <h class="center1">MYLP</h>
     </headbanner>
 
-    <div class="topnav">
-      <div class="search-container">
-        <form>
-          <input type="text" placeholder="Rechercher.." name="search">
-        </form>
+    <div style="position:absolute; top:0; right:0; margin-top:50px;">
+      <div class="svg-wrapper" style="float:left">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+          <rect id="shape" height="40" width="150" />
+          <div id="text">
+            <a href="Propos.php" style="text-decoration:none">
+              <input type="submit" name="submit" class="spot" value="A propos">
+            </a>
+          </div>
+        </svg>
+      </div>
+      <div class="svg-wrapper">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+          <rect id="shape" height="40" width="150" />
+          <div id="text">
+            <a href="Aide.php" style="text-decoration:none">
+              <input type="submit" name="submit" class="spot" value="Aide">
+            </a>
+          </div>
+        </svg>
       </div>
     </div>
+
+    <div id="nav">
+      <input type="text" placeholder="Rechercher votre établissement" name="search" id="searchbar" onkeyup="searchEtab()">
+
+      <?php
+        foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
+          printf("<div class='etab'>\"%s\"</div>",$etablissement["name"]);
+        }
+      ?>
+    </div>
+
 
     <div id="home" >
       <div id="filters">
@@ -323,7 +349,18 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
                     echo "<td>";
                     print($value['fields']['etablissement_lib']);
                     echo "</td>";
-                    echo "<td><a href='Etablissement.php'><input type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input></a></td>";
+                    echo "<td>";?>
+                    <a href='Etablissement.php'>
+                    <div class="svg-wrapper">
+                      <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                        <rect id="shape" height="40" width="150"/>
+                        <div id="text">
+                          <?php echo "<input class='spot' type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input>";?>
+                        </div>
+                      </svg>
+                    </div>
+                    </a><?php
+                    echo "</td>";
                   echo "</tr>";
                 echo "</form>";
                 $color = false;
@@ -351,7 +388,18 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
                     echo "<td>";
                     print($value['fields']['etablissement_lib']);
                     echo "</td>";
-                    echo "<td><a href='Etablissement.php'><input type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input></a></td>";
+                    echo "<td>";?>
+                    <a href='Etablissement.php'>
+                    <div class="svg-wrapper" style="background-color: rgba(255, 255, 255, 0);">
+                      <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                        <rect id="shape" height="40" width="150" />
+                        <div id="text">
+                          <?php echo "<input class='spot' type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input>";?>
+                        </div>
+                      </svg>
+                    </div>
+                    </a><?php
+                    echo "</td>";
                   echo "</tr>";
                 echo "</form>";
                 $color = true;
@@ -372,8 +420,7 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
     </div>
 
     <footer>
-      <button><a href="Propos.php" style="text-decoration:none">A propos</a></button>
-      <button><a href="Aide.php" style="text-decoration:none">Aide</a></button>
+
     </footer>
 
   </body>
@@ -391,6 +438,7 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
 
     function openFilter(evt, filter) {
       document.getElementById("container-1").style.float="left";
+      document.getElementById("container-2").style.display="block";
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
       for (i = 0; i < tabcontent.length; i++) {
@@ -401,6 +449,7 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
         tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
       document.getElementById(filter).style.display = "block";
+
       evt.currentTarget.className += " active";
     }
 
@@ -411,9 +460,24 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
         tab.push($(this).val());
       });
 
-      $('p').text(tab.join(" & "));
+      $('p').text(tab.join(" ### "));
 
     });
+
+    function searchEtab() {
+
+      var input = document.getElementById('searchbar').valueinput=input.toLowerCase();
+      var x = document.getElementsByClassName('etab');
+
+      for (i = 0; i < x.length; i++) {
+          if (!x[i].innerHTML.toLowerCase().includes(input)) {
+              x[i].style.display="none";
+          }
+          else {
+              x[i].style.display="list-item";
+          }
+      }
+    }
 
   </script>
 </html>
