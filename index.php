@@ -112,9 +112,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
       <input type="text" placeholder="Rechercher votre établissement" name="search" id="searchbar" onkeyup="searchEtab()">
 
       <?php
+      /*
         foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
           printf("<div class='etab'>\"%s\"</div>",$etablissement["name"]);
         }
+        */
       ?>
     </div>
 
