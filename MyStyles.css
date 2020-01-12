@@ -5,11 +5,11 @@
   /*colors*/
   --h: #000000;
   --p: #000000;
-  --background1: rgba(48, 178, 193, 0.80);
-  --background2: rgba(48, 178, 193, 1);
+  --background1: rgba(91, 51, 255, 0.70);
+  --background2: rgba(91, 51, 255, 1);
   --background3: rgba(255, 255, 255, 1);
   --border: #000000;
-  --tab: rgba(48, 178, 193, 1);;
+  --tab: rgba(91, 51, 255, 1);;
 
   /*sizes*/
   --title: 30px;
@@ -26,6 +26,7 @@
 }
 
 /*MAIN CLASSES*/
+
 .button {
   cursor: pointer;
 }
@@ -38,12 +39,12 @@
 }
 
 body {
-  background: url(../img/1.jpg) center no-repeat, rebeccapurple;
-  background-color: grey;
+  background: url(img/1.jpg) center no-repeat, rebeccapurple;
   margin: 0;
   padding: 0;
   width: 100%;
   text-align: center;
+  font-family: 'Exo 2', sans-serif;
 }
 
 h {
@@ -86,6 +87,18 @@ headbanner {
   height: 50px;
 }
 
+#helpButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 50px;
+}
+
+.spot {
+  color: white;
+  font-family: 'Exo 2', sans-serif;
+}
+
 /*SEARCH BAR*/
 #nav {
   margin: 100px 30% 0 30%;
@@ -94,30 +107,31 @@ headbanner {
 #searchbar {
   width: 100%;
   padding: 15px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: var(--txt);
 }
 
 #nav input[type=text] {
   width: 50%;
   -webkit-transition: width 0.15s ease-in-out;
   transition: width 0.15s ease-in-out;
+  font-family: 'Exo 2', sans-serif;
+  font-size: var(--txt);
 }
 
 #nav input[type=text]:focus {
  width: 100%;
+ font-family: 'Exo 2', sans-serif;
+ font-size: var(--txt);
 }
 
-#list {
-  display: none;
-  width: 100%;
-  height: 100px;
-  overflow: auto;
-  background-color: white;
+#nav .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-.etab {
-  padding: 5px 0;
-  display: list-item;
-}
 
 @media screen and (max-width: 600px) {
   .topnav .search-container {
@@ -157,9 +171,11 @@ headbanner {
 }
 
 #checkboxvalue {
-  font-size: var(--txt);
+  color: white;
+  font-size: var(--title);
   margin: 10px;
   background: var(--background1);
+  visibility: hidden;
 }
 
 #container-2 {
@@ -181,6 +197,11 @@ headbanner {
   font-size: var(--txt);
 }
 
+.contents .spot {
+  color: black;
+  font-family: 'Exo 2', sans-serif;
+}
+
 #aucunedonnee {
   font-size: 20px;
   color: red;
@@ -188,6 +209,7 @@ headbanner {
 
 #mapid {
   margin-top: 100px;
+  margin-bottom: 20px;
   height: 400px;
 }
 
@@ -195,6 +217,7 @@ headbanner {
   margin-top: 50px;
   margin-left: 25%;
   margin-right: 25%;
+  color: white;
 }
 
 /*FOOTER*/

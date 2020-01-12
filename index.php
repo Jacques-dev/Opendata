@@ -25,35 +25,6 @@ $_FILES = $_SESSION['sauvegardeFILES'] ;
 
 unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
 }
-
-  $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=diplome_lib&refine.rentree_lib=2017-18";
-  $contents = file_get_contents($url);
-  $results = json_decode($contents, true);
-
-  $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=discipline_lib&refine.rentree_lib=2017-18";
-  $contents2 = file_get_contents($url2);
-  $results2 = json_decode($contents2, true);
-
-  $url3 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=reg_etab_lib&refine.rentree_lib=2017-18";
-  $contents3 = file_get_contents($url3);
-  $results3= json_decode($contents3, true);
-
-  $url4 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=dep_etab_lib&refine.rentree_lib=2017-18";
-  $contents4 = file_get_contents($url4);
-  $results4 = json_decode($contents4, true);
-
-  $url5 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=com_etab_lib&refine.rentree_lib=2017-18";
-  $contents5 = file_get_contents($url5);
-  $results5 = json_decode($contents5, true);
-
-  $url6 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=aca_etab_lib&refine.rentree_lib=2017-18";
-  $contents6 = file_get_contents($url6);
-  $results6 = json_decode($contents6, true);
-
-  $url7 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=etablissement_lib&refine.rentree_lib=2017-18";
-  $contents7 = file_get_contents($url7);
-  $results7 = json_decode($contents7, true);
-
 ?>
 
 
@@ -62,11 +33,13 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="MyStyles.css">
-    <link rel="stylesheet" type="text/css" href="button.css">
-    <link rel="stylesheet" type="text/css" href="Content.css">
-    <link rel="stylesheet" type="text/css" href="forms.css">
-    <link rel="stylesheet" type="text/css" href="Animations.css">
+    <link rel="stylesheet" type="text/css" href="MyStyles.css"/>
+    <link rel="stylesheet" type="text/css" href="button.css"/>
+    <link rel="stylesheet" type="text/css" href="Content.css"/>
+    <link rel="stylesheet" type="text/css" href="forms.css"/>
+    <link rel="stylesheet" type="text/css" href="Animations.css"/>
+    <link rel="stylesheet" type="text/css" href="searchbar.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Exo+2&display=swap" rel="stylesheet"/>
 
     <script type="text/javascript" src="js/MyScript.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
@@ -85,7 +58,7 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
       <h class="center1">MYLP</h>
     </headbanner>
 
-    <div style="position:absolute; top:0; right:0; margin-top:50px;">
+    <div id="helpButton">
       <div class="svg-wrapper" style="float:left">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
           <rect id="shape" height="40" width="150" />
@@ -109,16 +82,55 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
     </div>
 
     <div id="nav">
-      <input type="text" placeholder="Rechercher votre établissement" name="search" id="searchbar" onkeyup="searchEtab()">
+      <div class="row">
+				<div class="col">
+          <!--
+					<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+					<script id="rendered-js">
+					angular.module('sortApp', [])
 
-      <?php
-      /*
-        foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
-          printf("<div class='etab'>\"%s\"</div>",$etablissement["name"]);
-        }
-        */
-      ?>
-    </div>
+					.controller('mainController', function($scope) {
+					  $scope.sortType     = 'name'; // set the default sort type
+					  $scope.sortReverse  = false;  // set the default sort order
+					  $scope.searchDipl   = '';     // set the default search/filter term
+
+					  $scope.data = [
+              <?php
+              $url7 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=etablissement_lib&refine.rentree_lib=2017-18";
+              $contents7 = file_get_contents($url7);
+              $results7 = json_decode($contents7, true);
+              foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
+                $test = $etablissement["name"];
+                echo "{ etab: '".$test."' },";
+              }
+              ?>
+            ];
+
+					});
+					</script>
+
+					<div class="container" ng-app="sortApp" ng-controller="mainController">
+          -->
+					  <form>
+						<div class="form-group">
+							<input type="text" placeholder="Rechercher votre établissement" name="search" id="searchbar" onkeyup="searchEtab()" class="form-control" ng-model="searchEtab">
+						  </div>
+						</div>
+					  </form>
+            <!--
+					  <table class="table table-bordered table-striped">
+
+							<tbody>
+							  <tr ng-repeat="roll in data | orderBy:sortType:sortReverse | filter:searchEtab">
+								  <td>{{ roll.etab }}</td>
+							  </tr>
+							</tbody>
+
+					  </table>
+          -->
+					</div>
+				</div>
+			</div>
 
 
     <div id="home" >
@@ -154,8 +166,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
             <div id="diplome" class="tabcontent">
 
                 <?php
+                $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=diplome_lib&refine.rentree_lib=2017-18";
+                $contents = file_get_contents($url);
+                $results = json_decode($contents, true);
                 foreach ($results["facet_groups"][0]["facets"] as $diplome) {
-                  printf("<div class='checkbox'><input type='checkbox' name='checkboxdiplome[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$diplome["name"],$diplome["name"],$diplome["name"]);
+                  printf("<div class='checkbox'><input onclick='selectionView(\"%s\")' type='checkbox' name='checkboxdiplome[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$diplome["name"],$diplome["name"],$diplome["name"],$diplome["name"]);
                 }
                 ?>
 
@@ -164,8 +179,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
             <div id="formation" class="tabcontent">
 
                 <?php
+                $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=discipline_lib&refine.rentree_lib=2017-18";
+                $contents2 = file_get_contents($url2);
+                $results2 = json_decode($contents2, true);
                 foreach ($results2["facet_groups"][0]["facets"] as $formation) {
-                  printf("<div class='checkbox'><input type='checkbox' name='checkboxformation[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$formation["name"],$formation["name"],$formation["name"]);
+                  printf("<div class='checkbox'><input onclick='selectionView(\"%s\")' type='checkbox' name='checkboxformation[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$formation["name"],$formation["name"],$formation["name"],$formation["name"]);
                 }
                 ?>
 
@@ -174,8 +192,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
             <div id="region" class="tabcontent">
 
                 <?php
+                $url3 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=reg_etab_lib&refine.rentree_lib=2017-18";
+                $contents3 = file_get_contents($url3);
+                $results3= json_decode($contents3, true);
                 foreach ($results3["facet_groups"][0]["facets"] as $region) {
-                  printf("<div class='checkbox'><input type='checkbox' name='checkboxregion[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$region["name"],$region["name"],$region["name"]);
+                  printf("<div class='checkbox'><input onclick='selectionView(\"%s\")' type='checkbox' name='checkboxregion[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$region["name"],$region["name"],$region["name"],$region["name"]);
                 }
                 ?>
 
@@ -184,8 +205,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
             <div id="departement" class="tabcontent">
 
                 <?php
+                $url4 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=dep_etab_lib&refine.rentree_lib=2017-18";
+                $contents4 = file_get_contents($url4);
+                $results4 = json_decode($contents4, true);
                 foreach ($results4["facet_groups"][0]["facets"] as $departement) {
-                  printf("<div class='checkbox'><input type='checkbox' name='checkboxdepartement[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$departement["name"],$departement["name"],$departement["name"]);
+                  printf("<div class='checkbox'><input onclick='selectionView(\"%s\")' type='checkbox' name='checkboxdepartement[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$departement["name"],$departement["name"],$departement["name"],$departement["name"]);
                 }
                 ?>
 
@@ -194,8 +218,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
             <div id="ville" class="tabcontent">
 
                 <?php
+                $url5 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=com_etab_lib&refine.rentree_lib=2017-18";
+                $contents5 = file_get_contents($url5);
+                $results5 = json_decode($contents5, true);
                 foreach ($results5["facet_groups"][0]["facets"] as $ville) {
-                  printf("<div class='checkbox'><input type='checkbox' name='checkboxville[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$ville["name"],$ville["name"],$ville["name"]);
+                  printf("<div class='checkbox'><input onclick='selectionView(\"%s\")' type='checkbox' name='checkboxville[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$ville["name"],$ville["name"],$ville["name"],$ville["name"]);
                 }
                 ?>
 
@@ -204,8 +231,11 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
             <div id="academie" class="tabcontent">
 
                 <?php
+                $url6 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=aca_etab_lib&refine.rentree_lib=2017-18";
+                $contents6 = file_get_contents($url6);
+                $results6 = json_decode($contents6, true);
                 foreach ($results6["facet_groups"][1]["facets"] as $academie) {
-                  printf("<div class='checkbox'><input type='checkbox' name='checkboxacademie[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$academie["name"],$academie["name"],$academie["name"]);
+                  printf("<div class='checkbox'><input onclick='selectionView(\"%s\")' type='checkbox' name='checkboxacademie[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$academie["name"],$academie["name"],$academie["name"],$academie["name"]);
                 }
                 ?>
 
@@ -214,17 +244,14 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
             <div id="etablissement" class="tabcontent">
 
                 <?php
+                $url7 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=etablissement_lib&refine.rentree_lib=2017-18";
+                $contents7 = file_get_contents($url7);
+                $results7 = json_decode($contents7, true);
                 foreach ($results7["facet_groups"][0]["facets"] as $etablissement) {
-                  printf("<div class='checkbox'><input type='checkbox' name='checkboxetablissement[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$etablissement["name"],$etablissement["name"],$etablissement["name"]);
+                  printf("<div class='checkbox'><input onclick='selectionView(\"%s\")' type='checkbox' name='checkboxetablissement[]' value=\"%s\"><label for=\"%s\">%s</label></div>",$etablissement["name"],$etablissement["name"],$etablissement["name"],$etablissement["name"]);
                 }
                 ?>
 
-            </div>
-
-            <div id="checkboxvalue">
-
-              Votre sélection :
-              <p></p>
             </div>
 
             <div class="svg-wrapper">
@@ -240,12 +267,18 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
 
         </div>
 
+        <div id="checkboxvalue">
+
+          Votre sélection :
+          <p style="color: white"></p>
+        </div>
+
       </div>
 
       <div class="contents">
         <table>
           <tr id="head">
-            <th>diplomes</th>
+            <th>Diplomes</th>
             <th>Formations</th>
             <th>Régions</th>
             <th>Départements</th>
@@ -315,11 +348,7 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
               }
             }
 
-
-
           }
-
-
 
           $urltab1 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=100&sort=-rentree_lib".$eta.$dip.$for.$vil.$dep.$aca.$reg."&refine.rentree_lib=2017-18";
           $contentstab1 = file_get_contents($urltab1);
@@ -455,16 +484,17 @@ unset($_SESSION['sauvegarde'], $_SESSION['sauvegardeFILES']);
       evt.currentTarget.className += " active";
     }
 
-    $('input').on('click', function(){
-      var tab = [];
+    function selectionView(choice) {
+        document.getElementById("checkboxvalue").style.visibility = "visible";
+        var tab = [];
 
-      $.each($('input:checked'), function() {
-        tab.push($(this).val());
-      });
+        $.each($('input:checked'), function() {
+          tab.push(choice);
+        });
 
-      $('p').text(tab.join(" ### "));
+        $('p').text(tab.join(" ### "));
 
-    });
+    }
 
     function searchEtab() {
 

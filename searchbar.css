@@ -1,0 +1,72 @@
+.clearfix:before, .clearfix:after, .dl-horizontal dd:before, .dl-horizontal dd:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after, .form-horizontal .form-group:before, .form-horizontal .form-group:after, .btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical>.btn-group:before, .btn-group-vertical>.btn-group:after, .nav:before, .nav:after, .navbar:before, .navbar:after, .navbar-header:before, .navbar-header:after, .navbar-collapse:before, .navbar-collapse:after, .pager:before, .pager:after, .panel-body:before, .panel-body:after, .modal-footer:before, .modal-footer:after {
+    content: " ";
+    display: table;
+}
+*:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.clearfix:after, .dl-horizontal dd:after, .container:after, .container-fluid:after, .row:after, .form-horizontal .form-group:after, .btn-toolbar:after, .btn-group-vertical>.btn-group:after, .nav:after, .navbar:after, .navbar-header:after, .navbar-collapse:after, .pager:after, .panel-body:after, .modal-footer:after {
+    clear: both;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+#nav input {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#nav input, #nav button, #nav select, #nav textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+#nav button, #nav input, #nav optgroup, #nav select, #nav textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+.table-bordered {
+    border: 1px solid #dfd7ca;
+}
+#nav .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+#nav table {
+    background-color: transparent;
+}
+#nav table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>th, .table>caption+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>td, .table>thead:first-child>tr:first-child>td {
+    border-top: 0;
+}
+.table-bordered>thead>tr>th, .table-bordered>thead>tr>td {
+    border-bottom-width: 2px;
+}
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #dfd7ca;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #dfd7ca;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #a98445;
+}
+tbody tr:hover td{
+	background-color: #333333!important;
+	cursor:pointer;
+  color: white;
+}

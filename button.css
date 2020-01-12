@@ -19,8 +19,8 @@
 }
 
 .btn:hover {
-  color: rgba(0, 0, 0, 1);
-  background-color: rgba(48, 178, 193, 0.75);
+  color: white;
+  background-color: rgba(91, 51, 255, 0.80);
   cursor: pointer;
 }
 
