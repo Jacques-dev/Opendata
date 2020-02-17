@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="Nav.css"/>
     <link rel="stylesheet" type="text/css" href="Menu.css"/>
     <link rel="stylesheet" type="text/css" href="SearchBox.css"/>
-    
+    <link rel="stylesheet" type="text/css" href="Filters.css"/>
 
     <script type="text/javascript" src="js/jquery.js"></script>
 
@@ -41,19 +41,49 @@
   
     <main>
       <filters>
-
+        <div class="dropdown">
+          <button class="dropbtn">Dropdown</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <button class="dropbtn">Dropdown</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <button class="dropbtn">Dropdown</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
       </filters>
       
       <results>
-        <map>
+        <div>
+          <map>
 
-        </map>
+          </map>
 
-        <list>
-          
-        </list>
+          <list>
+
+          </list>
+        </div>
       </results>
       
+      <info>
+        
+      </info>
       
     </main>
   </body>

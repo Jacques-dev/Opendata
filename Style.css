@@ -10,5 +10,32 @@ body {
 }
 
 main {
-  margin: 0 25%;
+  margin: 25px 5% 0 5%;
+}
+
+filters {
+  
+}
+
+results:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+map {
+  margin-top: 20px;
+  margin-right: 2.5%;
+  float: left;
+  width: 67.5%;
+  height: 300px;
+  background-color: aqua;
+}
+
+list {
+  margin-top: 20px;
+  float: left;
+  width: 30%;
+  height: 300px;
+  background-color: crimson;
 }
