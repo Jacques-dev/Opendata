@@ -13,29 +13,63 @@ main {
   margin: 25px 5% 0 5%;
 }
 
-filters {
+#filters {
+
+}
+
+#results {
   
 }
 
-results:after {
+.row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-map {
-  margin-top: 20px;
-  margin-right: 2.5%;
+.leftcolumn {
   float: left;
   width: 67.5%;
-  height: 300px;
-  background-color: aqua;
+  margin-right: 2.5%;
 }
 
-list {
-  margin-top: 20px;
+.rightcolumn {
   float: left;
   width: 30%;
-  height: 300px;
-  background-color: crimson;
 }
+
+.card {
+  margin-top: 20px;
+  background-color: var(--c1);
+  color: var(--c2);
+  height: 600px;
+}
+
+#map {
+  height: 600px;
+  text-indent: 10px;
+  padding-top: 10px;
+}
+
+#list {
+  height: 610px;
+}
+
+#info {
+  margin-top: 25px;
+  padding-top: 10px;
+  width: 100%;
+  background-color: var(--c1);
+  height: 100px;
+  color: var(--c2);
+  text-indent: 10px;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+  background-color: var(--c1);
+  margin-top: 25px;
+  color: var(--c2);
+}
+

@@ -1,0 +1,29 @@
+:root {
+  --c1: #4F4F4F;
+  --c2: #FFFFFF;
+  --c3: #dc143c;
+}
+
+.contents {
+  overflow: auto;
+  height: 608px;
+  margin-top: 0px;
+}
+
+.contents th, .contents td {
+  text-align: left;
+  padding: 8px;
+  width: 100%;
+}
+
+.contents #head {
+  background-color: var(--c3);
+}
+
+.contents #first {
+  background-color: lightgrey;
+}
+
+.contents #second {
+  background-color: white;
+}
