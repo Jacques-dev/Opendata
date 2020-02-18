@@ -47,8 +47,10 @@ main {
 
 #map {
   height: 600px;
-  text-indent: 10px;
-  padding-top: 10px;
+}
+
+#mapid {
+  height: 600px;
 }
 
 #list {

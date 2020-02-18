@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="Button.css"/>
     <link rel="stylesheet" type="text/css" href="List.css"/>
 
+    <script type="text/javascript" src="js/Script.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
@@ -149,7 +150,9 @@
             <svg height="56" width="150" xmlns="http://www.w3.org/2000/svg">
               <rect id="shape" height="56" width="140"/>
               <div id="text">
-                <input type="submit" name="submit" class="spot" value="Rechercher">
+                <form action="index.php" method="post">
+                  <input type="submit" name="submit" class="spot" value="Rechercher">
+                </form>
               </div>
             </svg>
           </div>
@@ -171,7 +174,11 @@
         <div class="leftcolumn">
           <div class="card" id="list">
             <div class="contents">
+              <?php
+                if (isset($_POST["submit"])) {
+              ?>
               <table>
+                
                 <tr id="head">
                   <th>Diplomes</th>
                   <th>Formations</th>
@@ -182,18 +189,17 @@
                   <th>Etablissements</th>
                   <th>Liens</th>
                 </tr>
-
+                
                 <?php
+                  
+                  $dip = "&facet=diplome_lib";
+                  $for = "&facet=discipline_lib";
+                  $reg = "&facet=reg_etab_lib";
+                  $dep = "&facet=dep_etab_lib";
+                  $vil = "&facet=com_etab_lib";
+                  $aca = "&facet=aca_etab_lib";
+                  $eta = "&facet=etablissement_lib";
 
-                $dip = "&facet=diplome_lib";
-                $for = "&facet=discipline_lib";
-                $reg = "&facet=reg_etab_lib";
-                $dep = "&facet=dep_etab_lib";
-                $vil = "&facet=com_etab_lib";
-                $aca = "&facet=aca_etab_lib";
-                $eta = "&facet=etablissement_lib";
-
-                if (isset($_POST["submit"])) {
                   if (isset($_POST['checkboxdiplome'])) {
                     $dip = "";
                     foreach ($_POST['checkboxdiplome'] as $x) {
@@ -243,14 +249,14 @@
                     }
                   }
 
-                }
 
-                $urltab1 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=100&sort=-rentree_lib".$eta.$dip.$for.$vil.$dep.$aca.$reg."&refine.rentree_lib=2017-18";
-                $contentstab1 = file_get_contents($urltab1);
-                $tab = json_decode($contentstab1, true);
 
-                $color = true;
-                foreach ($tab['records'] as $value) {
+                  $urltab1 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=100&sort=-rentree_lib".$eta.$dip.$for.$vil.$dep.$aca.$reg."&refine.rentree_lib=2017-18";
+                  $contentstab1 = file_get_contents($urltab1);
+                  $tab = json_decode($contentstab1, true);
+
+                  $color = true;
+                  foreach ($tab['records'] as $value) {
                     if ($color == true) {
                       echo "<form method='post' action='index.php'> ";
                         echo "<tr id='first'>";
@@ -328,37 +334,74 @@
                       echo "</form>";
                       $color = true;
                     }
+                  }
+
+                  $count = 0;
+                  foreach ($tab['records'] as $value) {
+                    $count +=1;
+                  }
+                  if ($count == 0) {
+                    echo "<div id='aucunedonnee'>AUCUNE DONNÉES</div>";
+                  }
+                  
                 }
 
+                if (!(isset($_POST["submit"]))) {
+                  ?>
+                  <table style="opacity:0.5">
+
+                  <tr id="head">
+                    <th>Diplomes</th>
+                    <th>Formations</th>
+                    <th>Régions</th>
+                    <th>Départements</th>
+                    <th>Villes</th>
+                    <th>Académies</th>
+                    <th>Etablissements</th>
+                    <th>Liens</th>
+                  </tr>
+                  <?php
+                  $color = true;
+                  for ($i = 0; $i <= 8; $i++) {
+                    if ($color == true) {
+                      echo "<tr id='first' style='opacity:0.5'>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                      echo "</tr>";
+                      $color = false;
+                    } else {
+                      echo "<tr id='second' style='opacity:0.5'>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                        echo "<td style='height:61px'></td>";
+                      echo "</tr>";
+                      $color = true;
+                    }
+                  }
+                }
                 ?>
 
               </table>
-              <?php
-              $count = 0;
-              foreach ($tab['records'] as $value) {
-                $count +=1;
-              }
-              if ($count == 0) {echo "<div id='aucunedonnee'>AUCUNE DONNÉES</div>";}
-              ?>
+              
             </div>
           </div>
         </div>
         <div class="rightcolumn">
           <div class="card" id="map">
-            <?php
-            if (isset($_POST["nomEtab"])) {
-              $url = "https://data.education.gouv.fr/api/records/1.0/search/?dataset=fr-en-adresse-et-geolocalisation-etablissements-premier-et-second-degre&refine.libelle_commune=".$_POST["nomEtab"];
-              $content = file_get_contents($url);
-              $results = json_decode($content, true);
-
-              foreach($results['records'] as $value) {
-                $lat = $value["fields"]["position"][0];
-                $lon = $value["fields"]["position"][1];
-              }
-
-              echo "<div id='mapid'></div>";
-            }
-            ?>
+            
+            <div id='mapid'></div>
+            
           </div>
         </div>
       </div>
@@ -375,39 +418,48 @@
   </body>
   
   <script>
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-    }
+    <?php
+      if (isset($_POST["nomEtab"])) {
+        $url = "https://data.education.gouv.fr/api/records/1.0/search/?dataset=fr-en-adresse-et-geolocalisation-etablissements-premier-et-second-degre&refine.libelle_commune=".$_POST["nomEtab"];
+        $content = file_get_contents($url);
+        $results = json_decode($content, true);
 
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
-    
-    function selectionView(choice) {
-        document.getElementById("checkboxvalue").style.visibility = "visible";
-        var tab = [];
+        foreach($results['records'] as $value) {
+          $lat = $value["fields"]["position"][0];
+          $lon = $value["fields"]["position"][1];
+          $zoom = 12;
+        }
+        ?>
+        var lon = <?php echo json_encode($lon); ?>;
+        var lat = <?php echo json_encode($lat); ?>;
+        var zoom = <?php echo json_encode($zoom); ?>;
+        var mymap = L.map('mapid').setView([lon, lat], zoom);
+        <?php
+        
+        ?>
+        var marker = L.marker([lon, lat]).addTo(mymap);
 
-        $.each($('input:checked'), function() {
-          tab.push(choice);
-        });
+        var popup = L.popup()
+        .setLatLng([lon, lat])
+        .setContent("I am a standalone popup.")
+        .openOn(mymap);
 
-        $('p').text(tab.join(" ### "));
-
-    }
-  </script>
-  <script>
-    var lon = <?php echo json_encode($lon); ?>;
-    var lat = <?php echo json_encode($lat); ?>;
-    var mymap = L.map('mapid').setView([lat, lon], 12);
-
-    var marker = L.marker([lat, lon]).addTo(mymap);
-
-    var popup = L.popup()
-    .setLatLng([lat, lon])
-    .setContent("I am a standalone popup.")
-    .openOn(mymap);
-
-    marker.bindPopup(<?php echo json_encode($_POST["nomEtab"]); ?>).openPopup();
+        marker.bindPopup().openPopup();
+        <?php
+      } 
+      if (!(isset($_POST["nomEtab"]))) {
+        $lon = 47.873972;
+        $lat = 2.686132;
+        $zoom = 6;
+        
+        ?>
+        var lon = <?php echo json_encode($lon); ?>;
+        var lat = <?php echo json_encode($lat); ?>;
+        var zoom = <?php echo json_encode($zoom); ?>;
+        var mymap = L.map('mapid').setView([lon, lat], zoom);
+        <?php
+      }
+      ?>
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: '',
@@ -415,6 +467,11 @@
     id: 'mapbox/streets-v11',
     accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
     }).addTo(mymap);
+    
+    
+    
   </script>
+  
+
   
 </html>
