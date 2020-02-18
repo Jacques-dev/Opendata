@@ -286,7 +286,7 @@
                             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                               <rect id="shape" height="40" width="150"/>
                               <div id="text">
-                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input>";?>
+                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['etablissement']."' name='codeEtab'></input>";?>
                               </div>
                             </svg>
                           </div>
@@ -324,7 +324,7 @@
                             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                               <rect id="shape" height="40" width="150" />
                               <div id="text">
-                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['com_etab_lib']."' name='nomEtab'></input>";?>
+                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['etablissement']."' name='codeEtab'></input>";?>
                               </div>
                             </svg>
                           </div>
@@ -343,7 +343,7 @@
                   if ($count == 0) {
                     echo "<div id='aucunedonnee'>AUCUNE DONNÉES</div>";
                   }
-                  
+                  ?></table><?php
                 }
 
                 if (!(isset($_POST["submit"]))) {
@@ -419,14 +419,18 @@
   
   <script>
     <?php
-      if (isset($_POST["nomEtab"])) {
-        $url = "https://data.education.gouv.fr/api/records/1.0/search/?dataset=fr-en-adresse-et-geolocalisation-etablissements-premier-et-second-degre&refine.libelle_commune=".$_POST["nomEtab"];
+      if (isset($_POST["codeEtab"])) {
+        $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&refine.uai=".$_POST["codeEtab"];
         $content = file_get_contents($url);
         $results = json_decode($content, true);
+        
+        $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.etablissement=".$_POST["codeEtab"];
+        $content2 = file_get_contents($url2);
+        $results2 = json_decode($content2, true);
 
         foreach($results['records'] as $value) {
-          $lat = $value["fields"]["position"][0];
-          $lon = $value["fields"]["position"][1];
+          $lat = $value["fields"]["coordonnees"][1];
+          $lon = $value["fields"]["coordonnees"][0];
           $zoom = 12;
         }
         ?>
@@ -439,15 +443,13 @@
         ?>
         var marker = L.marker([lon, lat]).addTo(mymap);
 
-        var popup = L.popup()
-        .setLatLng([lon, lat])
-        .setContent("I am a standalone popup.")
-        .openOn(mymap);
+        var popup = L.popup().setLatLng([lon, lat]).setContent("bonjour").openOn(mymap);
+        <?php //echo $results2['records']["fields"]["etablissement_lib"]; ?>
 
         marker.bindPopup().openPopup();
         <?php
       } 
-      if (!(isset($_POST["nomEtab"]))) {
+      if (!(isset($_POST["codeEtab"]))) {
         $lon = 47.873972;
         $lat = 2.686132;
         $zoom = 6;
