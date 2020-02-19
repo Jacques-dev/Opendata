@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="Filters.css"/>
     <link rel="stylesheet" type="text/css" href="Button.css"/>
     <link rel="stylesheet" type="text/css" href="List.css"/>
+    <link rel="stylesheet" type="text/css" href="Info.css"/>
 
     <script type="text/javascript" src="js/Script.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
@@ -355,71 +356,56 @@
                   <tr id="head">
                     <th>Diplomes</th>
                     <th>Formations</th>
-                    <th>Liens</th>
+                    <th>Cycle</th>
+                    <th>Nombre d'élève</th>
                   </tr>
                   <?php
                   $color = true;
-                  $dip = array();
                   foreach ($results['records'] as $value) {
-                    
-                    if (!(in_array($value["fields"]['diplome_lib'],$dip))) {
 
-                      array_push($dip,$value["fields"]['diplome_lib']);
-
-                      if ($color == true) {
-                        echo "<form method='post' action='index.php'> ";
-                          echo "<tr id='first'>";
-                            echo "<td>";
-                            print($value["fields"]['diplome_lib']);
-                            echo "</td>";
-                            echo "<td>";
-                            print($value['fields']['discipline_lib']);
-                            echo "</td>";
-                            echo "<td>";?>
-                              <div class="svg-wrapper">
-                                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                                  <rect id="shape" height="40" width="150"/>
-                                  <div id="text">
-                                    <?php echo "<input class='spot' type='submit' value='test' name='dipl'></input>";?>
-                                  </div>
-                                </svg>
-                              </div>
-                              <?php
-                              echo "</td>";
-                            echo "</tr>";
-                          echo "</form>";
-                          $color = false;
-                        } else {
-                          echo "<form method='post' action='index.php'> ";
-                            echo "<tr id='second'>";
-                              echo "<td>";
-                              print($value['fields']['diplome_lib']);
-                              echo "</td>";
-                              echo "<td>";
-                              print($value['fields']['discipline_lib']);
-                              echo "</td>";
-                              echo "<td>";?>
-                                <div class="svg-wrapper">
-                                  <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                                    <rect id="shape" height="40" width="150"/>
-                                    <div id="text">
-                                      <?php echo "<input class='spot' type='submit' value='test' name='dipl'></input>";?>
-                                    </div>
-                                  </svg>
-                                </div>
-                              <?php
-                              echo "</td>";
-                            echo "</tr>";
-                          echo "</form>";
-                          $color = true;
-                        }
-                      }
+                    if ($color == true) {
+                      echo "<form method='post' action='index.php'> ";
+                        echo "<tr id='first'>";
+                          echo "<td>";
+                          print($value["fields"]['diplome_lib']);
+                          echo "</td>";
+                          echo "<td>";
+                          print($value['fields']['discipline_lib']);
+                          echo "</td>";
+                          echo "<td>";
+                          print($value['fields']['cursus_lmd_lib']);
+                          echo "</td>";
+                          echo "<td>";
+                          print($value['fields']['effectif_total']);
+                          echo "</td>";
+                        echo "</tr>";
+                      echo "</form>";
+                      $color = false;
+                    } else {
+                      echo "<form method='post' action='index.php'> ";
+                        echo "<tr id='second'>";
+                          echo "<td>";
+                          print($value['fields']['diplome_lib']);
+                          echo "</td>";
+                          echo "<td>";
+                          print($value['fields']['discipline_lib']);
+                          echo "</td>";
+                          echo "<td>";
+                          print($value['fields']['cursus_lmd_lib']);
+                          echo "</td>";
+                          echo "<td>";
+                          print($value['fields']['effectif_total']);
+                          echo "</td>";
+                        echo "</tr>";
+                      echo "</form>";
+                      $color = true;
                     }
-                  ?>
-                </table>
-                <?php
-                }
+                  }
                 ?>
+              </table>
+              <?php
+              }
+              ?>
               
             </div>
           </div>
@@ -434,7 +420,27 @@
       </div>
       
       <div id="info">
-        info
+        <?php
+        if (isset($_POST["code"])) {
+          $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.etablissement=".$_POST["code"];
+          $content = file_get_contents($url);
+          $results = json_decode($content, true);
+          
+          echo "<b class='tab'><u>Etablissement</u></b>  :  ".$results['records'][0]['fields']['etablissement_lib']."<br>";
+          echo "<b class='tab'><u>Type d'établissement</u></b>  :  ".$results['records'][0]['fields']['etablissement_type_lib']."<br>";
+          echo "<b class='tab'><u>Région</u></b> : ".$results['records'][0]['fields']['reg_etab_lib']."<br>";
+          echo "<b class='tab'><u>Département</u></b>  :  ".$results['records'][0]['fields']['dep_etab_lib']."<br>";
+          echo "<b class='tab'><u>Académie</u></b>  :  ".$results['records'][0]['fields']['aca_etab_lib']."<br>";
+          echo "<b class='tab'><u>Commune</u></b>  :  ".$results['records'][0]['fields']['com_etab_lib']."<br>";
+          
+          $nb = 0;
+          foreach ($results['records'] as $value) {
+            $nb = $nb + $value['fields']['effectif_total'];
+          }
+          
+          echo "<b class='tab'><u>Nombre total d'élèves</u></b>  :  ".$nb;
+        }
+        ?>
       </div>
       
     </main>
