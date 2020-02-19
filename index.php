@@ -286,7 +286,7 @@
                             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                               <rect id="shape" height="40" width="150"/>
                               <div id="text">
-                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['etablissement']."' name='codeEtab'></input>";?>
+                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['etablissement']."' name='code'></input>";?>
                               </div>
                             </svg>
                           </div>
@@ -324,7 +324,7 @@
                             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                               <rect id="shape" height="40" width="150" />
                               <div id="text">
-                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['etablissement']."' name='codeEtab'></input>";?>
+                                <?php echo "<input class='spot' type='submit' value='".$value['fields']['etablissement']."' name='code'></input>";?>
                               </div>
                             </svg>
                           </div>
@@ -345,54 +345,81 @@
                   }
                   ?></table><?php
                 }
-
-                if (!(isset($_POST["submit"]))) {
+              
+                if (isset($_POST["code"])) {
+                  $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.etablissement=".$_POST["code"];
+                  $content = file_get_contents($url);
+                  $results = json_decode($content, true);
                   ?>
-                  <table style="opacity:0.5">
-
+                <table>
                   <tr id="head">
                     <th>Diplomes</th>
                     <th>Formations</th>
-                    <th>Régions</th>
-                    <th>Départements</th>
-                    <th>Villes</th>
-                    <th>Académies</th>
-                    <th>Etablissements</th>
                     <th>Liens</th>
                   </tr>
                   <?php
                   $color = true;
-                  for ($i = 0; $i <= 8; $i++) {
-                    if ($color == true) {
-                      echo "<tr id='first' style='opacity:0.5'>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                      echo "</tr>";
-                      $color = false;
-                    } else {
-                      echo "<tr id='second' style='opacity:0.5'>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                        echo "<td style='height:61px'></td>";
-                      echo "</tr>";
-                      $color = true;
+                  $dip = array();
+                  foreach ($results['records'] as $value) {
+                    
+                    if (!(in_array($value["fields"]['diplome_lib'],$dip))) {
+
+                      array_push($dip,$value["fields"]['diplome_lib']);
+
+                      if ($color == true) {
+                        echo "<form method='post' action='index.php'> ";
+                          echo "<tr id='first'>";
+                            echo "<td>";
+                            print($value["fields"]['diplome_lib']);
+                            echo "</td>";
+                            echo "<td>";
+                            print($value['fields']['discipline_lib']);
+                            echo "</td>";
+                            echo "<td>";?>
+                              <div class="svg-wrapper">
+                                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                                  <rect id="shape" height="40" width="150"/>
+                                  <div id="text">
+                                    <?php echo "<input class='spot' type='submit' value='test' name='dipl'></input>";?>
+                                  </div>
+                                </svg>
+                              </div>
+                              <?php
+                              echo "</td>";
+                            echo "</tr>";
+                          echo "</form>";
+                          $color = false;
+                        } else {
+                          echo "<form method='post' action='index.php'> ";
+                            echo "<tr id='second'>";
+                              echo "<td>";
+                              print($value['fields']['diplome_lib']);
+                              echo "</td>";
+                              echo "<td>";
+                              print($value['fields']['discipline_lib']);
+                              echo "</td>";
+                              echo "<td>";?>
+                                <div class="svg-wrapper">
+                                  <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                                    <rect id="shape" height="40" width="150"/>
+                                    <div id="text">
+                                      <?php echo "<input class='spot' type='submit' value='test' name='dipl'></input>";?>
+                                    </div>
+                                  </svg>
+                                </div>
+                              <?php
+                              echo "</td>";
+                            echo "</tr>";
+                          echo "</form>";
+                          $color = true;
+                        }
+                      }
                     }
-                  }
+                  ?>
+                </table>
+                <?php
                 }
                 ?>
-
-              </table>
               
             </div>
           </div>
@@ -407,7 +434,7 @@
       </div>
       
       <div id="info">
-       info
+        info
       </div>
       
     </main>
@@ -419,50 +446,43 @@
   
   <script>
     <?php
-      if (isset($_POST["codeEtab"])) {
-        $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&refine.uai=".$_POST["codeEtab"];
-        $content = file_get_contents($url);
-        $results = json_decode($content, true);
-        
-        $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.etablissement=".$_POST["codeEtab"];
-        $content2 = file_get_contents($url2);
-        $results2 = json_decode($content2, true);
+    if (isset($_POST["code"])) {
+      $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&refine.uai=".$_POST["code"];
+      $content = file_get_contents($url);
+      $results = json_decode($content, true);
 
-        foreach($results['records'] as $value) {
-          $lat = $value["fields"]["coordonnees"][1];
-          $lon = $value["fields"]["coordonnees"][0];
-          $zoom = 12;
-        }
-        ?>
-        var lon = <?php echo json_encode($lon); ?>;
-        var lat = <?php echo json_encode($lat); ?>;
-        var zoom = <?php echo json_encode($zoom); ?>;
-        var mymap = L.map('mapid').setView([lon, lat], zoom);
-        <?php
-        
-        ?>
-        var marker = L.marker([lon, lat]).addTo(mymap);
+      $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.etablissement=".$_POST["code"];
+      $content2 = file_get_contents($url2);
+      $results2 = json_decode($content2, true);
 
-        var popup = L.popup().setLatLng([lon, lat]).setContent("bonjour").openOn(mymap);
-        <?php //echo $results2['records']["fields"]["etablissement_lib"]; ?>
-
-        marker.bindPopup().openPopup();
-        <?php
-      } 
-      if (!(isset($_POST["codeEtab"]))) {
-        $lon = 47.873972;
-        $lat = 2.686132;
-        $zoom = 6;
-        
-        ?>
-        var lon = <?php echo json_encode($lon); ?>;
-        var lat = <?php echo json_encode($lat); ?>;
-        var zoom = <?php echo json_encode($zoom); ?>;
-        var mymap = L.map('mapid').setView([lon, lat], zoom);
-        <?php
+      foreach($results['records'] as $value) {
+        $lat = $value["fields"]["coordonnees"][1];
+        $lon = $value["fields"]["coordonnees"][0];
+        $zoom = 14;
       }
       ?>
+      var lon = <?php echo json_encode($lon); ?>;
+      var lat = <?php echo json_encode($lat); ?>;
+      var zoom = <?php echo json_encode($zoom); ?>;
+      var mymap = L.map('mapid').setView([lon, lat], zoom);
+      
+      L.marker([lon, lat]).addTo(mymap).bindPopup('<?php echo $results2['records']['0']["fields"]["etablissement_lib"]; ?>').openPopup();
+      <?php
+    } 
+    if (!(isset($_POST["code"]))) {
+      $lon = 47.873972;
+      $lat = 2.686132;
+      $zoom = 6;
 
+      ?>
+      var lon = <?php echo json_encode($lon); ?>;
+      var lat = <?php echo json_encode($lat); ?>;
+      var zoom = <?php echo json_encode($zoom); ?>;
+      var mymap = L.map('mapid').setView([lon, lat], zoom);
+      <?php
+    }
+    ?>
+    
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: '',
     maxZoom: 18,
