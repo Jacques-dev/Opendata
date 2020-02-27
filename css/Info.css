@@ -1,0 +1,17 @@
+:root {
+  --c1: #4F4F4F;
+  --c2: #FFFFFF;
+  --c3: #dc143c;
+}
+
+.tab {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+#info a {
+  color: white;
+}
+#info a:hover {
+  color: var(--c3);
+}

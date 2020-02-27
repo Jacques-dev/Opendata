@@ -10,15 +10,7 @@ body {
 }
 
 main {
-  margin: 25px 5% 0 5%;
-}
-
-#filters {
-
-}
-
-#results {
-  
+  margin: 25px 10% 0 10%;
 }
 
 .row:after {
@@ -27,51 +19,47 @@ main {
   clear: both;
 }
 
-.leftcolumn {
+.column {
   float: left;
-  width: 67.5%;
+  text-align: center;
+}
+
+.left {
+  width: 57.5%;
+  margin-right: 2.5%;
+}
+.left2 {
+  width: 40%;
   margin-right: 2.5%;
 }
 
-.rightcolumn {
-  float: left;
-  width: 30%;
+.right {
+  width: 40%;
+}
+.right2 {
+  width: 57.5%;
 }
 
 .card {
   margin-top: 20px;
   background-color: var(--c1);
   color: var(--c2);
-  height: 600px;
+  height: 500px;
 }
 
-#map {
-  height: 600px;
+a img {
+  width: 50px;
+  margin-left: 50px;
 }
 
-#mapid {
-  height: 610px;
-}
-
-#list {
-  height: 610px;
-}
-
-#info {
-  margin-top: 25px;
-  padding-top: 10px;
+img {
   width: 100%;
-  background-color: var(--c1);
-  height: 170px;
-  color: var(--c2);
-  font-size: 20px;
 }
 
 footer {
-  padding: 10px;
+  padding: 10px 0;
   text-align: center;
   background-color: var(--c1);
   margin-top: 25px;
   color: var(--c2);
 }
-

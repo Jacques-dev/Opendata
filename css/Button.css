@@ -15,6 +15,7 @@
 }
 
 .svg-wrapper {
+
   top: 20px;
   position: relative;
   width: 150px;
@@ -26,6 +27,7 @@
 }
 
 .svg-wrapper #shape {
+
   stroke-width: 6px;
   fill: rgba(255, 255, 255, 0);
   stroke: var(--c3);
@@ -40,6 +42,7 @@
 }
 
 .svg-wrapper #text input {
+  cursor: pointer;
   text-decoration: none;
   font-weight: 100;
   font-size: 1.1em;

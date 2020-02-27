@@ -27,3 +27,17 @@
 .contents #second {
   background-color: white;
 }
+
+.contents a:hover {
+  color: var(--c3);
+}
+
+.res {
+  padding: 5px;
+  color: var(--c3);
+  background-color: var(--c2);
+  width: 150px;
+  border: 1px solid;
+  margin: 5px;
+  text-align: center;
+}

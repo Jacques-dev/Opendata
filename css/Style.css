@@ -1,0 +1,76 @@
+:root {
+  --c1: #4F4F4F;
+  --c2: #FFFFFF;
+  --c3: #dc143c;
+}
+
+body {
+  font-family: 'Exo 2', sans-serif !important;
+  margin: 0;
+}
+
+main {
+  margin: 25px 5% 0 5%;
+}
+
+#filters {
+
+}
+
+#results {
+
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.leftcolumn {
+  float: left;
+  width: 57.5%;
+  margin-right: 2.5%;
+}
+
+.rightcolumn {
+  float: left;
+  width: 40%;
+}
+
+.card {
+  margin-top: 20px;
+  background-color: var(--c1);
+  color: var(--c2);
+  height: 600px;
+}
+
+#map {
+  height: 610px;
+}
+
+#mapid {
+  height: 610px;
+}
+
+#list {
+  height: 610px;
+}
+
+#info {
+  margin-top: 25px;
+  padding-top: 10px;
+  width: 100%;
+  background-color: var(--c1);
+  height: auto;
+  color: var(--c2);
+  font-size: 20px;
+}
+
+footer {
+  padding: 10px 0;
+  text-align: center;
+  background-color: var(--c1);
+  margin-top: 25px;
+  color: var(--c2);
+}
