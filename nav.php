@@ -14,9 +14,12 @@
 
 <div id="test">
   <div id="slideshow">
-      <img src="" alt=<?php echo "1 : ".""?>>
-      <img src="" alt=<?php echo "2 : ".""?>>
-      <img src="" alt=<?php echo "3 : ".""?>>
+    <?php
+    $list = bestFormation();
+    ?>
+      <img src="" alt= <?php echo "1 : ".$list[0]; ?> >
+      <img src="" alt= <?php echo "2 : ".$list[1]; ?> >
+      <img src="" alt= <?php echo "3 : ".$list[2]; ?> >
   </div>
 </div>
 <script type="text/javascript">

@@ -1,6 +1,8 @@
+
+
 <div id="info" class="shadow">
   <?php
-  if(isset($_GET["forma"])) {
+  if(isset($_GET["forma"])) { //Si on recherche une formations spécifique
     $url2 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&refine.uai=".$_GET["code"]."&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
     $content2 = file_get_contents($url2);
     $results2 = json_decode($content2, true);
@@ -9,7 +11,7 @@
     echo "<b class='tab'><u>Nombre de vu sur cette formation</u></b>  :  ";
 
   } else {
-    if(isset($_GET["code"])) {
+    if(isset($_GET["code"])) { //Si on recherche un établissement spécifique
       $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.etablissement=".$_GET["code"]."&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
       $content = file_get_contents($url);
       $results = json_decode($content, true);
@@ -27,7 +29,7 @@
       echo "<b class='tab'><u>Commune</u></b>  :  ".$results['records'][0]['fields']['com_etab_lib']."<br>";
 
       $nb = 0;
-      foreach ($results['records'] as $value) {
+      foreach ($results['records'] as $value) {//On compte le nombre d'élève par formation pour en faire un total
         $nb = $nb + $value['fields']['effectif_total'];
       }
 

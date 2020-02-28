@@ -1,6 +1,8 @@
+
+
 <div class="contents">
   <?php
-  if (isset($_POST["submit"])) {
+  if (isset($_POST["submit"])) {//Si on a lancé une recherche avec le bouton "Rechercher"
     ?>
     <table>
       <tr id="head">
@@ -14,6 +16,12 @@
       </tr>
 
       <?php
+
+      //En fonction de ce qui et coché, on va mofifier l'url de l'API avec des facet ou de refine
+      //Dans un filtre, si rien n'est coché un laissera la variable assossié à ce filtre en facet
+      //Sinon on la transforme en refine
+      //on effectuera autant de refine que de choix coché(s)
+
       $dip = "&facet=diplome_lib";
       $for = "&facet=discipline_lib";
       $reg = "&facet=reg_etab_lib";
@@ -81,7 +89,7 @@
       foreach ($tab['records'] as $value) {
         $count +=1;
       }
-      if ($count == 0) {
+      if ($count == 0) { // On affiche le nombre de résulat(s), si il n'y en a pas, on affiche un message
         echo "<div class='res'>AUCUNE DONNÉES</div>";
       } else {
         echo "<div class='res'>".$count." résultats trouvés.</div>";
@@ -124,7 +132,7 @@
     </table>
     <?php
   } else {
-    if(isset($_GET["forma"])) {
+    if(isset($_GET["forma"])) { //Si on fait une recherche
       $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.discipline_lib=".$_GET["forma"]."&refine.etablissement=".$_GET["code"]."&refine.effectif_total=".$_GET["effect"]."&refine.niveau_lib=".$_GET["cursus"]."&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
       $content = file_get_contents($url);
       $results = json_decode($content, true);
@@ -244,7 +252,8 @@
                 echo "<td>";
                 print($value["fields"]['diplome_lib']);
                 echo "</td>";
-                echo "<td><a href='home.php?forma=" . $value['fields']['discipline_lib'] . "&code=" . $value['fields']['etablissement'] . "&effect=" . $value['fields']['effectif_total'] . "&cursus=" . $value['fields']['niveau_lib'] . "'>";
+                $urlred = "home.php?forma=" . $value['fields']['discipline_lib'] . "&name=" . $value['fields']['etablissement'] . "&effect=" . $value['fields']['effectif_total'] . "&cursus=" . $value['fields']['niveau_lib'];
+                echo "<td><a href='click.php?url2=".$urlred."&forma=" . $value['fields']['discipline_lib'] . "&name=" . $value['fields']['etablissement_lib'] . "&effect=" . $value['fields']['effectif_total'] . "&cursus=" . $value['fields']['niveau_lib'] . "'>";
                 print($value['fields']['discipline_lib']);
                 echo "</a></td>";
                 echo "<td>";
