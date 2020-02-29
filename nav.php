@@ -10,9 +10,9 @@
 
 <span id="burger" onclick="openNav()">&#9776;</span>
 
-<h id="navTitle" class="fade-in">MYLP</h>
+<a href="home.php" style="text-decoration: none"><h id="navTitle" class="fade-in">MYLP</h></a>
 
-<div id="test">
+<div id="test" class="fade-in">
   <div id="slideshow">
     <?php
     $list = bestFormation();
@@ -29,7 +29,7 @@
   });
 </script>
 
-<div id="topformation">Top formations :</div>
+<div id="topformation" class="fade-in">Top formations :</div>
 
 <div class="container">
   <form method="POST" action="home.php">

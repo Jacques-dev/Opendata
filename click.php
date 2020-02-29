@@ -35,7 +35,7 @@ if (isset($_GET["url2"])) {
 		}
 	}
 	if ($ok == false) {
-		array_push($data["formations"], array("name" => $name, "forma" => $forma, "cursus" => $cursus, "effectif" => $effect));
+		array_push($data["formations"], array("name" => $name, "forma" => $forma, "cursus" => $cursus, "effectif" => $effect, "number" => 1));
 	}
 	$new_json = json_encode($data);
 	file_put_contents('save.json',$new_json);

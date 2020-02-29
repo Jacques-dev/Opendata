@@ -72,6 +72,8 @@
       <a href="https://github.com/Jacques-dev/Opendata" target="_blank">
         https://github.com/Jacques-dev/Opendata
       </a>
+      <br>
+      Jacques Tellier
     </footer>
   </body>
 

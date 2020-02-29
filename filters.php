@@ -11,7 +11,7 @@ for($x = 0 ; $x < 7 ; $x++) {?><!--7 filtres dominants donc 7 tours de boucle-->
     <button class="dropbtn"><?php echo $filter[$x]; ?></button><!--Bouton de filtre-->
     <div class="dropdown-content"><!--menu déroulant-->
       <?php
-      $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=".$facet[$x]."&refine.rentree_lib=2017-18&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
+      $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&facet=".$facet[$x]."&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
       $contents = file_get_contents($url);
       $results = json_decode($contents, true);
 

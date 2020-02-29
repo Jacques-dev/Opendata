@@ -81,7 +81,7 @@
 
 
 
-      $urltab1 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=100&sort=-rentree_lib".$eta.$dip.$for.$vil.$dep.$aca.$reg."&refine.rentree_lib=2017-18&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
+      $urltab1 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=500&sort=-rentree_lib".$eta.$dip.$for.$vil.$dep.$aca.$reg."&refine.rentree_lib=2017-18&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
       $contentstab1 = file_get_contents($urltab1);
       $tab = json_decode($contentstab1, true);
 
@@ -201,10 +201,16 @@
             print($value["fields"]['effectif']);
             echo "</td>";
             echo "<td>";
-            print($value["fields"]['femmes']);
+            error_reporting($value["fields"]['femmes']);
+            if ($value["fields"]['femmes'] == null) {
+              echo "?";
+            } else {print($value["fields"]['femmes']);}
             echo "</td>";
             echo "<td>";
-            print($value["fields"]['hommes']);
+            error_reporting($value["fields"]['hommes']);
+            if ($value["fields"]['hommes'] == null) {
+              echo "?";
+            } else {print($value["fields"]['hommes']);}
             echo "</td>";
           echo "</tr>";
           if ($id == 'first') {

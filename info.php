@@ -11,7 +11,7 @@
     $results2 = json_decode($content2, true);
 
     echo "<b class='tab'><u>Site Web</u></b>  :  <a href='click.php?url=".$results2["records"][0]["fields"]["url"]."'>".$results2["records"][0]["fields"]["url"]."</a><br>";
-    echo "<b class='tab'><u>Nombre de vu sur cette formation</u></b>  :  ".numberOfView();
+    echo "<b class='tab'><u>Nombre de vu sur cette formation</u></b>  :  ".numberOfView(false);
 
   } else {
     if(isset($_GET["code"])) { //Si on recherche un établissement spécifique
@@ -36,7 +36,8 @@
         $nb = $nb + $value['fields']['effectif_total'];
       }
 
-      echo "<b class='tab'><u>Nombre total d'élèves</u></b>  :  ".$nb;
+      echo "<b class='tab'><u>Nombre total d'élèves</u></b>  :  ".$nb."<br>";
+      echo "<b class='tab'><u>Nombre de vu sur cette établissement</u></b>  :  ".numberOfView(true);
     }
   }
 
