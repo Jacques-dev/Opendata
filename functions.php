@@ -22,10 +22,10 @@ function sortFilters($list, $ok) {
 
 
 
-function bestFormation() {
+function bestFormation($choice) {
 
   $list = array(0,0,0) ;
-  $list2 = array("","","");
+  $list2 = array();
 
   $json = file_get_contents('save.json');
   $json = utf8_encode($json);
@@ -36,16 +36,17 @@ function bestFormation() {
 
     for($i = 0; $i < 3 ; $i++) {
 
-      if($x["number"] > $list[$i]) {
+      if($data["formations"][$x]["number"] > $list[$i]) {
         $list[$i] = $data["formations"][$x]["number"];
-        $list2[$i] = $data["formations"][$x]["name"];
-        
+        array_push($list2,$data["formations"][$x]["forma"]);
+        break;
       }
     }
   }
 
-  return $list2;
-
+  if ($choice == 0) {return str_replace(' ', '-', $list2[0]);}
+  if ($choice == 1) {return str_replace(' ', '-', $list2[1]);}
+  if ($choice == 2) {return str_replace(' ', '-', $list2[2]);}
 }
 
 function numberOfView($check) {

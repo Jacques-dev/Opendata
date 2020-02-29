@@ -44,13 +44,17 @@ nav {
   height: 60px;
   overflow: hidden;
   color: var(--c2);
+  margin-right: 50px;
 }
 
 #test img {
   font-size: 20px;
-  margin-top: 10px;
   width: auto;
   height: 50px;
+}
+
+#slideshow {
+  margin-top: 10px;
 }
 
 #topformation {

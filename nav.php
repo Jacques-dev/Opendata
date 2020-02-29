@@ -15,11 +15,13 @@
 <div id="test" class="fade-in">
   <div id="slideshow">
     <?php
-    $list = bestFormation();
+    $first = bestFormation(0);
+    $second = bestFormation(1);
+    $third = bestFormation(2);
     ?>
-      <img src="" alt= <?php echo "1 : ".$list[0]; ?> >
-      <img src="" alt= <?php echo "2 : ".$list[1]; ?> >
-      <img src="" alt= <?php echo "3 : ".$list[2]; ?> >
+      <img src="" alt= <?php echo $first; ?> >
+      <img src="" alt= <?php echo $second; ?> >
+      <img src="" alt= <?php echo $third; ?> >
   </div>
 </div>
 <script type="text/javascript">
