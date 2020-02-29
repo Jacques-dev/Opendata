@@ -46,4 +46,18 @@ function bestFormation() {
 
 }
 
+function numberOfView() {
+  $json = file_get_contents('save.json');
+  $json = utf8_encode($json);
+  $data = json_decode($json, true);
+
+  foreach($data["formations"] as $x => $entry) {
+		if($_GET["name"] == $entry["name"] && $_GET["forma"] == $entry["forma"] && $_GET["effect"] == $entry["effectif"] && $_GET["cursus"] == $entry["cursus"]) {
+			return $data["formations"][$x]["number"];
+		}
+	}
+  
+  return null;
+}
+
 ?>

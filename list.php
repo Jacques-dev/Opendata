@@ -133,7 +133,7 @@
     <?php
   } else {
     if(isset($_GET["forma"])) { //Si on fait une recherche
-      $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.discipline_lib=".$_GET["forma"]."&refine.etablissement=".$_GET["code"]."&refine.effectif_total=".$_GET["effect"]."&refine.niveau_lib=".$_GET["cursus"]."&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
+      $url = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.discipline_lib=".$_GET["forma"]."&refine.etablissement_lib=".$_GET["name"]."&refine.effectif_total=".$_GET["effect"]."&refine.niveau_lib=".$_GET["cursus"]."&apikey=4235ff7e201928217f476ed0265010597e1bf22cae753cdbbacc9af3";
       $content = file_get_contents($url);
       $results = json_decode($content, true);
       ?>
@@ -252,7 +252,7 @@
                 echo "<td>";
                 print($value["fields"]['diplome_lib']);
                 echo "</td>";
-                $urlred = "home.php?forma=" . $value['fields']['discipline_lib'] . "&name=" . $value['fields']['etablissement'] . "&effect=" . $value['fields']['effectif_total'] . "&cursus=" . $value['fields']['niveau_lib'];
+                $urlred = "home.php?forma=".$value['fields']['discipline_lib']."&name=".$value['fields']['etablissement_lib']."&effect=".$value['fields']['effectif_total']."&cursus=".$value['fields']['niveau_lib'];
                 echo "<td><a href='click.php?url2=".$urlred."&forma=" . $value['fields']['discipline_lib'] . "&name=" . $value['fields']['etablissement_lib'] . "&effect=" . $value['fields']['effectif_total'] . "&cursus=" . $value['fields']['niveau_lib'] . "'>";
                 print($value['fields']['discipline_lib']);
                 echo "</a></td>";
